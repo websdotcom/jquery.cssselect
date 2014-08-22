@@ -17,7 +17,7 @@ module.exports = function(config) {
     files: [
       'test-main.js',
       {pattern: 'jquery.js', included: false},
-      {pattern: 'jquery.cssSelect.js', included: false},
+      {pattern: 'dist/**/*.js', included: false},
       {pattern: 'test/**/*Spec.js', included: false}
     ],
 

@@ -1,4 +1,4 @@
-define(['../jquery', '../jquery.cssSelect'],function($){
+define(['../jquery', '../dist/jquery.cssSelect'],function($){
   describe("CSS Select Plugin", function(){
     // Sample DOM region:
     // <!-- output: -->
