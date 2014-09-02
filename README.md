@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/websdotcom/cssSelect.svg?branch=master)](https://travis-ci.org/websdotcom/cssSelect)
+[![Build Status](https://travis-ci.org/websdotcom/jquery.cssselect.svg?branch=master)](https://travis-ci.org/websdotcom/jquery.cssselect)
 
 cssSelect
 =========
