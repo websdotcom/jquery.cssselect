@@ -3,6 +3,6 @@
 cssSelect
 =========
 
-custom `<select>` boxes without inline styles for your `<script>` tag, AMD, and CommonJS.
+Keyboard-aware custom `<select>` dropdown boxes without inline styles. UMD-compatible – for your `<script>` tag with jQuery on the page, AMD module loader, or CommonJS.
 
-keep your styling in the stylesheet(s).
+Keep your dropdown styling in the stylesheet(s).
