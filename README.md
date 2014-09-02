@@ -3,4 +3,4 @@
 cssSelect
 =========
 
-custom `<select>` boxes without inline styles. keep your styling in the stylesheet(s).
+custom `<select>` boxes without inline styles for your `<script>` tag, AMD, and CommonJS. keep your styling in the stylesheet(s).
