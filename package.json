@@ -1,6 +1,11 @@
 {
   "name": "jquery.cssselect",
   "version": "1.0.0",
+  "description": "Keyboard-aware custom <select> dropdown boxes without inline styles. UMD-compatible – for your <script> tag with jQuery on the page, AMD module loader, or CommonJS.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/websdotcom/jquery.cssselect.git"
+  },
   "dependencies": {
     "jquery": "~2.1.0"
   },
