@@ -1,4 +1,4 @@
-define(['../jquery', '../dist/jquery.cssSelect'],function($){
+define(['../jquery', '../dist/jquery.cssSelect'],function($, cssSelect){
   describe("CSS Select Plugin", function(){
     // Sample DOM region:
     // <!-- output: -->
@@ -218,6 +218,50 @@ define(['../jquery', '../dist/jquery.cssSelect'],function($){
       $originalSelect.remove();
       $('.select').remove();
       $('.otherSelect').remove();
+    });
+  });
+
+  describe("CSS Select Standalone API", function(){
+    var $select, selectOptions;
+    before(function(){
+      $select = $('<select class="standalone-api" />').attr('name', 'standalone-api');
+      selectOptions = ['fourth', 'fifth', 'sixth', 'complex/value'];
+
+      $.each(selectOptions, function(index, element){
+        $select.append($('<option/>').text(element).val(element));
+      });
+
+      $('body').append($select);
+    });
+
+    after(function(){
+      $('body').remove('select.standalone-api');
+    });
+
+    it("has a standalone api that doesn't require jQuery (`$`) to be available in the scope", function(){
+      var wrappedCssSelectNode = cssSelect('.standalone-api');
+      expect(wrappedCssSelectNode.hasClass('select')).to.equal(true);
+    });
+
+    it("accepts optional params (e.g. for 'decoration')", function(){
+      var $decoratableSelect = $('<select class="decorate-me-again" />').attr('name', 'decoratable');
+      var selectOptions = ['first', 'second', 'third'];
+
+      $.each(selectOptions, function(index, element){
+        $decoratableSelect.append($('<option/>').text(element));
+      });
+
+      $('body').append($decoratableSelect);
+
+      var $decoratedCSSSelect = cssSelect('select.decorate-me-again', {
+        liDecorator: function(){
+          return '<a href="#" data-test="hello world">this text will be replaced.</a>';
+        }
+      });
+
+      expect($decoratedCSSSelect.find('ul a').data('test')).to.equal("hello world");
+
+      $('body').remove('select.decorate-me-again');
     });
   });
 });

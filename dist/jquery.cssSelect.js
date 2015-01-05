@@ -190,4 +190,8 @@
 
     return $cssSelect;
   };
+
+  return function(querySelector, options) {
+    return $.fn.cssSelect.call($(querySelector), options);
+  };
 }));
