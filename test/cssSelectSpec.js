@@ -243,6 +243,19 @@ define(['../jquery', '../dist/jquery.cssSelect'],function($, cssSelect){
       expect(wrappedCssSelectNode.hasClass('select')).to.equal(true);
     });
 
+    it("can take a DOM node as the first argument (an alternative to a query selector)", function(){
+      var $select = $('<select class="standalone-api-with-node" />').attr('name', 'standalone-api-with-node');
+      var selectOptions = ['fourth', 'fifth', 'sixth', 'complex/value'];
+
+      $.each(selectOptions, function(index, element){
+        $select.append($('<option/>').text(element).val(element));
+      });
+
+      var wrappedCssSelectNode = cssSelect($select[0]);
+
+      expect(wrappedCssSelectNode.hasClass('name-standalone-api-with-node')).to.equal(true);
+    });
+
     it("accepts optional params (e.g. for 'decoration')", function(){
       var $decoratableSelect = $('<select class="decorate-me-again" />').attr('name', 'decoratable');
       var selectOptions = ['first', 'second', 'third'];
