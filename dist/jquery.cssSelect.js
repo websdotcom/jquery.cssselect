@@ -50,6 +50,7 @@
     // create a 'selected' item that we display by default
     // and give it little adornments:
     $('<a class="selected" />')
+      .attr('data-option-value', $originalSelect.find('option:selected').val())
       .append($('<span/>').addClass('text'))
       .append($('<span/>').addClass('handle'))
     .prependTo($cssSelect);
@@ -75,6 +76,9 @@
       if(!$originalSelected.is('[data-placeholder]')) {
         $cssSelect.removeClass('placeholder');
       }
+
+      $cssSelect.find('a.selected').attr('data-option-value', $originalSelected.val());
+
       $cssSelect.find('.text').text($originalSelected.text());
       $cssSelect.find('ul li')
         .filter('[data-option-value="' + $originalSelected.val() + '"]')
