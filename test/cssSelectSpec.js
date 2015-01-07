@@ -50,6 +50,11 @@ define(['../jquery', '../dist/jquery.cssSelect'],function($, cssSelect){
         expect($('.select').filter('.name-' + selectName).hasClass('name-' + selectName));
       });
 
+      it("retains data attributes on original select", function() {
+        var val = $('.select').filter('.name-' + selectName).find('a.selected').attr('data-option-value');
+        expect(val).to.equal($originalSelect.find('option:selected').val());
+      });
+
       it("appends new unordered list that replicates select options", function(){
         expect($('.select').filter('.name-' + selectName).find('ul').length).to.equal(1);
         expect($('.select').filter('.name-' + selectName).find('ul li').length).to.equal(selectOptions.length);
@@ -180,6 +185,11 @@ define(['../jquery', '../dist/jquery.cssSelect'],function($, cssSelect){
       it("populates an element with some text that corresponds to the selected <option>", function(){
         $('.select ul li').eq(2).trigger('mousedown');
         expect($('.select .text').text()).to.equal('third');
+      });
+
+      it("updates content of [data-option-value] attribute", function(){
+        $('.select ul li').eq(1).trigger('mousedown');
+        expect($('.select a.selected').attr('data-option-value')).to.equal($originalSelect.find('option').eq(1).val());
       });
 
       it("handles <option> elements with complex-ish values", function(){
