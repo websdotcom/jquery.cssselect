@@ -193,6 +193,10 @@
           .addClass('selected');
     };
 
+    $cssSelect.isActive = function() {
+      return $cssSelect.hasClass('active');
+    };
+
     $cssSelect.find('.text').text($originalSelect.find('option:selected').text());
     $cssSelect.insertBefore($originalSelect);
 
