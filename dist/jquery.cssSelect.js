@@ -106,11 +106,6 @@
     $cssSelect.on('click', 'li', function(event){
       event.preventDefault();
 
-      // give clicked <li> the 'selected' class,
-      // remove from sibling <li>:
-      $(event.currentTarget).addClass('selected')
-        .siblings().removeClass('selected');
-
       $originalSelect[0].selectedIndex = $(this).data('option');
       $originalSelect.trigger('change');
       $cssSelect.removeClass('active');
@@ -188,6 +183,9 @@
       }
 
       $cssSelect.find('a.selected').attr('data-option-value', $selectedOption.val());
+
+      // remove 'selected' class from all <li>:
+      $cssSelect.find('li').removeClass('selected');
 
       $cssSelect.find('.text').text($selectedOption.text());
       $cssSelect.find('ul li')
