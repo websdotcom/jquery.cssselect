@@ -112,7 +112,7 @@
 
     // on click, select a matching element in the original <select>
     // and fire a change event to activate the new selection:
-    $cssSelect.on('mousedown', 'li', function(event){
+    $cssSelect.on('click', 'li', function(event){
       event.preventDefault();
 
       // give clicked <li> the 'selected' class,
@@ -171,7 +171,7 @@
       }
 
       if (event.keyCode === KEYCODES.RETURN) {
-        $currentSelection.trigger('mousedown');
+        $currentSelection.trigger('click');
       }
     });
 

@@ -111,7 +111,7 @@ define(['../jquery', '../dist/jquery.cssSelect'],function($, cssSelect){
 
       describe("when a new option is selected through the unordered list", function(){
         beforeEach(function () {
-          $('.select ul li').eq(2).trigger('mousedown');
+          $('.select ul li').eq(2).trigger('click');
         });
         it("fires select event on appropriate old option", function(){
           expect($('select.original option:selected').index()).to.equal(2);
@@ -183,19 +183,19 @@ define(['../jquery', '../dist/jquery.cssSelect'],function($, cssSelect){
       });
 
       it("populates an element with some text that corresponds to the selected <option>", function(){
-        $('.select ul li').eq(2).trigger('mousedown');
+        $('.select ul li').eq(2).trigger('click');
         expect($('.select .text').text()).to.equal('third');
       });
 
       it("updates content of [data-option-value] attribute", function(){
-        $('.select ul li').eq(1).trigger('mousedown');
+        $('.select ul li').eq(1).trigger('click');
         expect($('.select a.selected').attr('data-option-value')).to.equal($originalSelect.find('option').eq(1).val());
       });
 
       it("handles <option> elements with complex-ish values", function(){
         $('.select ul li').filter(function(index){
           return $(this).text().match(/\//) !== null;
-        }).first().trigger('mousedown');
+        }).first().trigger('click');
       });
     });
 
