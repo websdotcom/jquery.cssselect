@@ -192,6 +192,7 @@
     $cssSelect.find('.text').text($originalSelect.find('option:selected').text());
     $cssSelect.insertBefore($originalSelect);
 
+    $cssSelect.originalSelect = $originalSelect;
     return $cssSelect;
   };
 
