@@ -71,18 +71,9 @@
 
     // keep new select up to date with original select:
     $originalSelect.on('change', function(event){
-      var $originalSelected = $originalSelect.find('option:selected');
+      var $selectedOption = $originalSelect.find('option:selected');
 
-      if(!$originalSelected.is('[data-placeholder]')) {
-        $cssSelect.removeClass('placeholder');
-      }
-
-      $cssSelect.find('a.selected').attr('data-option-value', $originalSelected.val());
-
-      $cssSelect.find('.text').text($originalSelected.text());
-      $cssSelect.find('ul li')
-        .filter('[data-option-value="' + $originalSelected.val() + '"]')
-          .addClass('selected');
+      $cssSelect.setValue($selectedOption.val());
     });
 
     // grab the text of each original <option>
@@ -188,6 +179,21 @@
     if($originalSelect.find('option:selected').is('[data-placeholder]')) {
       $cssSelect.addClass('placeholder');
     }
+
+    $cssSelect.setValue = function(val) {
+      var $selectedOption = $originalSelect.find('[value="' + val + '"]');
+
+      if(!$selectedOption.is('[data-placeholder]')) {
+        $cssSelect.removeClass('placeholder');
+      }
+
+      $cssSelect.find('a.selected').attr('data-option-value', $selectedOption.val());
+
+      $cssSelect.find('.text').text($selectedOption.text());
+      $cssSelect.find('ul li')
+        .filter('[data-option-value="' + $selectedOption.val() + '"]')
+          .addClass('selected');
+    };
 
     $cssSelect.find('.text').text($originalSelect.find('option:selected').text());
     $cssSelect.insertBefore($originalSelect);
