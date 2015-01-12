@@ -92,7 +92,10 @@
       // note: the following calls to #find that use tagName are somewhat busted.
       // jQuery should be able to use #find based on a passed-in DOM node or a jQuery object.
       // that functionality isn't working, so instead we match against tagName or className.
-      if ($(options.liDecorator.call(this)).length && $li.find($(options.liDecorator.call(this))[0].tagName).length > 0) {
+      if (
+        $(options.liDecorator.call(this)).length
+        && $li.find($(options.liDecorator.call(this))[0].tagName).length > 0
+      ) {
         $li.find($(options.liDecorator.call(this))[0].tagName).text(optionText);
       } else {
         $li.text(optionText);
@@ -135,8 +138,14 @@
     // as the user's choice:
     $(window).on('keydown', function(event){
       var isActive = $cssSelect.hasClass('active');
+
       if (!isActive && !$originalSelect.is(':focus')) return;
-      if (event.keyCode !== KEYCODES.UP && event.keyCode !== KEYCODES.DOWN && event.keyCode !== KEYCODES.RETURN) return;
+
+      if (
+        event.keyCode !== KEYCODES.UP
+        && event.keyCode !== KEYCODES.DOWN
+        && event.keyCode !== KEYCODES.RETURN
+      ) return;
 
       // If it's not already open, open it
       // This happens if you select something, and then press up/down.
