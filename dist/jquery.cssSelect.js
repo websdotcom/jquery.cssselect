@@ -47,6 +47,28 @@
     // be appending list items to:
     var $cssSelect = $('<div><ul/></div>').addClass(options.classRoot);
 
+    var isActive = function() {
+      return $cssSelect.hasClass('active');
+    };
+
+    var activate = function() {
+      if (!isActive()) {
+        $cssSelect.addClass('active');
+        if (options.onActivate) {
+          options.onActivate();
+        }
+      }
+    };
+
+    var deactivate = function() {
+      if (isActive()) {
+        $cssSelect.removeClass('active');
+        if (options.onDeactivate) {
+          options.onDeactivate();
+        }
+      }
+    };
+
     // create a 'selected' item that we display by default
     // and give it little adornments:
     $('<a class="selected" />')
@@ -58,15 +80,14 @@
     // this is triggered when user tried to scroll on the select options
     $originalSelect.on('blur', function(event){
       if (!mouseInContainer) {
-        $cssSelect.removeClass('active');
+        deactivate();
       }
-
     });
 
     // when original <select> gets focus via 'tab' key,
     // trigger focus on new 'select':
     $originalSelect.on('focus', function(event){
-      $cssSelect.addClass('active');
+      activate();
     });
 
     // keep new select up to date with original select:
@@ -111,7 +132,7 @@
 
       $originalSelect[0].selectedIndex = $(this).data('option');
       $originalSelect.trigger('change');
-      $cssSelect.removeClass('active');
+      deactivate();
     });
 
     $cssSelect.on('click', '.selected', function(event){
@@ -137,21 +158,14 @@
     // 'return' key registers whatever is currently selected
     // as the user's choice:
     $(window).on('keydown', function(event){
-      var isActive = $cssSelect.hasClass('active');
-
-      if (!isActive && !$originalSelect.is(':focus')) return;
-
-      if (
-        event.keyCode !== KEYCODES.UP
-        && event.keyCode !== KEYCODES.DOWN
-        && event.keyCode !== KEYCODES.RETURN
-      ) return;
+      if (!isActive() && !$originalSelect.is(':focus')) return;
+      if (event.keyCode !== KEYCODES.UP && event.keyCode !== KEYCODES.DOWN && event.keyCode !== KEYCODES.RETURN) return;
 
       // If it's not already open, open it
       // This happens if you select something, and then press up/down.
       // Without this, the REAL (original) select box will open up,
       // since it still has focus.
-      if (!isActive) $cssSelect.addClass('active');
+      activate();
 
       event.preventDefault();
 
@@ -172,11 +186,10 @@
 
     //detect of the user clicks outside the dropdown list
     $(window).on('mousedown', function(event){
-      var isActive = $cssSelect.hasClass('active');
-      if (!isActive && !$originalSelect.is(':focus')) return;
+      if (!isActive() && !$originalSelect.is(':focus')) return;
 
       if (!mouseInContainer) {
-        $cssSelect.removeClass('active');
+        deactivate();
       }
     });
 
@@ -203,7 +216,7 @@
     };
 
     $cssSelect.isActive = function() {
-      return $cssSelect.hasClass('active');
+      return isActive();
     };
 
     $cssSelect.find('.text').text($originalSelect.find('option:selected').text());
