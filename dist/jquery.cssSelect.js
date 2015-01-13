@@ -135,6 +135,12 @@
       deactivate();
     });
 
+    $cssSelect.on('mouseover', '> .selected', function(event){
+      if (options.onHover) {
+        options.onHover();
+      }
+    });
+
     $cssSelect.on('click', '.selected', function(event){
       $originalSelect.trigger('focus');
     });
