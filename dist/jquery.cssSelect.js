@@ -40,7 +40,8 @@
     options = $.extend({
       classRoot: 'select ' + 'name-' + $originalSelect.attr('name'),
       // 'decorator' options need to return a DOM string that jQuery can use.
-      liDecorator: function(){ return '';}
+      liDecorator: function(){ return '';},
+      additionalItems: []
     }, options);
 
     // create a new 'select' that we'll
@@ -123,6 +124,25 @@
       }
 
       $cssSelect.find('li:first').addClass('hover');
+    });
+
+    $.each(options.additionalItems, function(index, element) {
+      var handler = function(){};
+
+      if (typeof element.handler === "function") {
+        handler = function(event){
+          element.handler(event);
+          deactivate();
+        };
+      }
+
+      $('<li/>').html(options.liDecorator.call(this))
+        .attr('data-option-value', element.value)
+        .data('option', index + $originalSelect.children("option").length)
+        .attr('data-additional-item', true)
+        .on('click', handler)
+        .text(element.label)
+        .appendTo($cssSelect.find('ul'));
     });
 
     // on click, select a matching element in the original <select>

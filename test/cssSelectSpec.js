@@ -224,6 +224,36 @@ define(['../jquery', '../dist/jquery.cssSelect'],function($, cssSelect){
       });
     });
 
+    describe("additional elements", function() {
+      var $additionalElSelect, selectOptions;
+
+      before(function(){
+        $additionalElSelect = $('<select class="decorate-me-add-items" />')
+          .attr('name', 'decoratable-with-items');
+
+        selectOptions = ['first', 'second', 'third'];
+
+        $.each(selectOptions, function(index, element){
+          $additionalElSelect.append($('<option/>').text(element));
+        });
+
+        $additionalElCSSSelect = $additionalElSelect.cssSelect({
+          additionalItems: [
+            {
+              label: 'hello',
+              value: 'itemValue'
+            }
+          ]
+        });
+      });
+
+      it("can add additional arbitrary list items", function() {
+        expect($additionalElCSSSelect.find('li').length).to.equal(4);
+        expect($additionalElCSSSelect.find('[data-option-value="itemValue"]')
+          .text()).to.equal('hello');
+      });
+    });
+
     afterEach(function(){
       $originalSelect.remove();
       $('.select').remove();
