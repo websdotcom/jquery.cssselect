@@ -111,6 +111,10 @@
         .data('option', index)
         .appendTo($cssSelect.find('ul'));
 
+      if (element.getAttribute('selected')) {
+        $li.addClass('selected');
+      }
+
       // note: the following calls to #find that use tagName are somewhat busted.
       // jQuery should be able to use #find based on a passed-in DOM node or a jQuery object.
       // that functionality isn't working, so instead we match against tagName or className.
