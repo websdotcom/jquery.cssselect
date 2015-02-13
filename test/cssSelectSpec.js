@@ -33,6 +33,8 @@ define(['../jquery', '../dist/jquery.cssSelect'],function($, cssSelect){
         $originalSelect.append($('<option/>').text(element).val(element));
       });
 
+      $originalSelect.find('option').eq(1).attr('selected', 'true');
+
       $('body').append($originalSelect, $('<select class="otherSelect" />'));
       $('select').cssSelect();
     });
@@ -59,6 +61,10 @@ define(['../jquery', '../dist/jquery.cssSelect'],function($, cssSelect){
         expect($('.select').filter('.name-' + selectName).find('ul').length).to.equal(1);
         expect($('.select').filter('.name-' + selectName).find('ul li').length).to.equal(selectOptions.length);
         expect($('.select').filter('.name-' + selectName).find('ul li').eq(1).text()).to.equal('second');
+      });
+
+      it("gives 'selected' class to list item that corresponds to `attr[selected]` inside of original <select>", function(){
+        expect($('.select').filter('.name-' + selectName).find('ul li.selected').length).to.equal(1);
       });
     });
 
