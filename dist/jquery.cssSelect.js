@@ -23,26 +23,27 @@
       });
     }
 
+    // keep a reference to the original <select>:
+    var $originalSelect = this;
+
+    options = $.extend({
+      classRoot: 'select ' + 'name-' + $originalSelect.attr('name'),
+      hiddenClass: 'hidden',
+      // 'decorator' options need to return a DOM string that jQuery can use.
+      liDecorator: function(){ return '';}
+    }, options);
+
     // flag to check if the mouse is in the dropdown ul container
     var mouseInContainer = false;
 
-    // keep a reference to the original <select>:
-    var $originalSelect = this;
     // 'hide' it:
-    $originalSelect.addClass('hidden');
+    $originalSelect.addClass(options.hiddenClass);
 
     var KEYCODES = {
       UP: 38,
       DOWN: 40,
       RETURN: 13
     };
-
-    options = $.extend({
-      classRoot: 'select ' + 'name-' + $originalSelect.attr('name'),
-      // 'decorator' options need to return a DOM string that jQuery can use.
-      liDecorator: function(){ return '';},
-      additionalItems: []
-    }, options);
 
     // create a new 'select' that we'll
     // be appending list items to:
