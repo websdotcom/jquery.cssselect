@@ -33,6 +33,8 @@ define(['../jquery', '../dist/jquery.cssSelect'],function($, cssSelect){
         $originalSelect.append($('<option/>').text(element).val(element));
       });
 
+      $originalSelect.find('option').eq(1).attr('selected', 'true');
+
       $('body').append($originalSelect, $('<select class="otherSelect" />'));
       $('select').cssSelect();
     });
@@ -59,6 +61,10 @@ define(['../jquery', '../dist/jquery.cssSelect'],function($, cssSelect){
         expect($('.select').filter('.name-' + selectName).find('ul').length).to.equal(1);
         expect($('.select').filter('.name-' + selectName).find('ul li').length).to.equal(selectOptions.length);
         expect($('.select').filter('.name-' + selectName).find('ul li').eq(1).text()).to.equal('second');
+      });
+
+      it("gives 'selected' class to list item that corresponds to `attr[selected]` inside of original <select>", function(){
+        expect($('.select').filter('.name-' + selectName).find('ul li.selected').length).to.equal(1);
       });
     });
 
@@ -221,6 +227,36 @@ define(['../jquery', '../dist/jquery.cssSelect'],function($, cssSelect){
         expect($decoratedCSSSelect.find('ul a').length > 0 ).to.equal(true);
         expect($decoratedCSSSelect.find('ul a').attr('href')).to.equal("#");
         expect($decoratedCSSSelect.find('ul a').data('test')).to.equal("hello world");
+      });
+    });
+
+    describe("additional elements", function() {
+      var $additionalElSelect, selectOptions;
+
+      before(function(){
+        $additionalElSelect = $('<select class="decorate-me-add-items" />')
+          .attr('name', 'decoratable-with-items');
+
+        selectOptions = ['first', 'second', 'third'];
+
+        $.each(selectOptions, function(index, element){
+          $additionalElSelect.append($('<option/>').text(element));
+        });
+
+        $additionalElCSSSelect = $additionalElSelect.cssSelect({
+          additionalItems: [
+            {
+              label: 'hello',
+              value: 'itemValue'
+            }
+          ]
+        });
+      });
+
+      it("can add additional arbitrary list items", function() {
+        expect($additionalElCSSSelect.find('li').length).to.equal(4);
+        expect($additionalElCSSSelect.find('[data-option-value="itemValue"]')
+          .text()).to.equal('hello');
       });
     });
 
