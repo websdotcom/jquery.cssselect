@@ -27,6 +27,7 @@
     var $originalSelect = this;
 
     options = $.extend({
+      additionalItems: [],
       classRoot: 'select ' + 'name-' + $originalSelect.attr('name'),
       hiddenClass: 'hidden',
       // 'decorator' options need to return a DOM string that jQuery can use.
