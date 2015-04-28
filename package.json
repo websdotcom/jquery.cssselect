@@ -1,6 +1,6 @@
 {
   "name": "jquery.cssselect",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "Keyboard-aware custom <select> dropdown boxes without inline styles. UMD-compatible – for your <script> tag with jQuery on the page, AMD module loader, or CommonJS.",
   "keywords": [
     "custom select",
